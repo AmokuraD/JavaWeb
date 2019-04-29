@@ -16,13 +16,12 @@
               <div style="margin:0 auto">
               <p class="gym_name">{{gym.gym_name}}</p>
               <p>
-                <Rate allow-half show-text disabled :value.sync="gym.score">
-                  <span style="color: #f5a623">{{ gym.score }}</span>
+                <Rate allow-half show-text disabled :value.sync="gym.point/gym.remark_num">
+                  <span style="color: #f5a623">{{gym.point/gym.remark_num}}</span>
                 </Rate>
               </p>
               <p>{{gym.gym_addr}}</p>
-              </div>
-              
+              </div>             
             </i-col>
           </Row>
         </router-link>

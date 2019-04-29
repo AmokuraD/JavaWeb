@@ -14,9 +14,9 @@
     name: 'MenuBar',
     data() {
       return {
-        hasPlan: true,
+        hasPlan: false,
         vHasPlan: {
-          name: 'Plan'
+          name: 'Target'
         },
         vIsLogin: {
           name: 'Login',
@@ -28,7 +28,19 @@
     methods: {
       navTo(name) {
         this.$router.push(name);
+      },
+      findPlan(){
+        this.axios.get('plan/findPlan')
+        .then(res=>{
+          if(res.data.code==200){
+            this.$store.dispatch('plan');
+          }
+        })
+        .catch(err=>console.log(err));
       }
+    },
+    mounted(){
+      this.findPlan()
     },
     computed: {
       fIsLogin() {

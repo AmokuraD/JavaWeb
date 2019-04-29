@@ -39,7 +39,7 @@
             </p>
             <p>
               <Rate allow-half show-text disabled v-model="comment.point">
-                <span style="color: #f5a623">{{ comment.point/comment.remark_num }}</span>
+                <span style="color: #f5a623">{{ comment.point}}</span>
               </Rate>
             </p>
             {{comment.content}}

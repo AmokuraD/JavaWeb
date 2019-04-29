@@ -1,35 +1,74 @@
 <template>
-    
-<div id="Target">
-        健身类型&#160;<Input v-model="formItem.goal_type" placeholder="健身类型" style="width: 300px" />
-        <br>
-        目标层次&#160;<Input v-model="formItem.goal" placeholder="目标层次" style="width: 300px" />
-        <br>
-        <i-button type="button">确定</i-button>
-    </div>
+  <div class="target-container">
+    <Row class="target-row-up">
+      <iCol span="24">
+        <div>
+          <Card class="target-card-up">
+            <img src="" alt="">
+            <RadioGroup class="radio-group" type="button">
+              <Radio label="1">增肌</Radio>
+              <Radio label="2">减脂</Radio>
+            </RadioGroup>
+          </Card>
+        </div>
+      </iCol>
+    </Row>
+    <Row class="target-row-down">
+      <iCol span="24">
+        <div class="target-card">
+          <Card class="target-card-down">
+            <RadioGroup class="radio-group" type="button">
+              <Radio label="1">轻度</Radio>
+              <Radio label="2">中度</Radio>
+              <Radio label="3">重度</Radio>
+            </RadioGroup>
+            <Divider/>
+            <Button type="primary" @click="insertTarget">创建健身计划</Button>
+          </Card>
+        </div>
+      </iCol>
+    </Row>
+  </div>
 </template>
 <script>
-import Vue from 'vue'
-export default {
+  export default {
     data() {
       return {
-        formItem: {
-          goal_type: '',
-          goal: ''
-        }
+        targetType: 1,
+        degree: 1
       }
     },
     methods: {
-      register() {
-        this.axios.post('/user/insertGoal', {
-            goal_type: this.formItem.goal_type,
-            goal: this.formItem.goal
+      insertTarget() {
+        this.axios.post('user/insertGoal', {
+            goal_type: this.targetType,
+            goal: this.degree
           })
-          .then(res => console.log(res))
+          .then(res => {
+            if (res.data.code == 200) {
+              this.$Message.info("创建成功");
+              this.$store.dispatch('plan');
+              this.$router.push('/Plan');
+            } else {
+              this.$Message.info("创建失败");
+            }
+          })
           .catch(err => console.log(err));
       }
     }
   }
+
 </script>
 <style>
+  .target-container {
+    height: 100vh;
+    padding: 0px 400px;
+  }
+
+  .target-row-up {
+    padding-top: 84px;
+  }
+
+  .radio-group {}
+
 </style>
